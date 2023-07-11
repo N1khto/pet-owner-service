@@ -58,3 +58,6 @@ class Pet(models.Model):
     species = models.ForeignKey(Species, on_delete=models.SET_NULL, null=True)
     breed = models.CharField(max_length=255, blank=True)
     food = models.ManyToManyField(PetFood, related_name="pets")
+
+    def __str__(self):
+        return self.nickname
