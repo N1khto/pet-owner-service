@@ -4,7 +4,11 @@ from django.db import models
 
 
 class PetOwner(AbstractUser):
-    pet_owner_experience = models.IntegerField()
+    pet_owner_experience = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "pet owner"
+        verbose_name_plural = "pet owners"
 
 
 class Species(models.Model):
@@ -12,10 +16,16 @@ class Species(models.Model):
     animal_class = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
 
+    def __str__(self):
+        return self.species
+
 
 class Brand(models.Model):
     name = models.CharField(max_length=255, unique=True)
     country = models.CharField(max_length=63)
+
+    def __str__(self):
+        return self.name
 
 
 class PetFood(models.Model):
@@ -31,6 +41,9 @@ class PetFood(models.Model):
     food_type = models.CharField(max_length=15, choices=FOOD_TYPES)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Pet(models.Model):
     PET_GENDER = [
@@ -43,5 +56,5 @@ class Pet(models.Model):
     gender = models.CharField(max_length=15, choices=PET_GENDER, null=True)
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     species = models.ForeignKey(Species, on_delete=models.SET_NULL, null=True)
-    breed = models.CharField(max_length=255)
+    breed = models.CharField(max_length=255, blank=True)
     food = models.ManyToManyField(PetFood, related_name="pets")
