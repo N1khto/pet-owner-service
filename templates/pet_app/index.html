@@ -1,1 +1,14 @@
-<p>test121</p>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Pet Service Home</h1>
+    <p>Welcome to Pet Service!</p>
+    <h2>Dynamic content</h2>
+    <p>The service has the following record counts:</p>
+    <ul>
+        <li><strong>Pets:</strong> {{ num_pets }}</li>
+        <li><strong>Pet owners:</strong> {{ num_pet_owners }}</li>
+        <li><strong>Brands:</strong> {{ num_brands }}</li>
+    </ul>
+
+{% endblock %}
