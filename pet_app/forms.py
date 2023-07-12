@@ -13,3 +13,4 @@ class SpeciesSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(attrs={"placeholder": "Search by species..."})
     )
+

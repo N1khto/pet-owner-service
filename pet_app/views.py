@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from pet_app.forms import SpeciesSearchForm
@@ -39,3 +40,20 @@ class SpeciesListView(LoginRequiredMixin, generic.ListView):
         if form.is_valid():
             return queryset.filter(species__icontains=form.cleaned_data["species"])
         return queryset
+
+
+class SpeciesCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Species
+    fields = "__all__"
+    success_url = reverse_lazy("pet_app:species-list")
+
+
+class SpeciesUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Species
+    fields = "__all__"
+    success_url = reverse_lazy("pet_app:species-list")
+
+
+class SpeciesDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Species
+    success_url = reverse_lazy("pet_app:species-list")
