@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from pet_app.forms import SpeciesSearchForm
+from pet_app.forms import SpeciesSearchForm, PetSearchForm
 from pet_app.models import Pet, PetOwner, PetFood, Species, Brand
 
 
@@ -57,3 +57,42 @@ class SpeciesUpdateView(LoginRequiredMixin, generic.UpdateView):
 class SpeciesDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Species
     success_url = reverse_lazy("pet_app:species-list")
+
+
+class PetListView(LoginRequiredMixin, generic.ListView):
+    model = Pet
+    paginate_by = 2
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PetListView, self).get_context_data(**kwargs)
+        nickname = self.request.GET.get("nickname", "")
+        context["search_form"] = PetSearchForm(initial={"nickname": nickname})
+        return context
+
+    def get_queryset(self):
+        queryset = Pet.objects.all()
+        form = PetSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(nickname__icontains=form.cleaned_data["nickname"])
+        return queryset
+
+
+class PetDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Pet
+
+
+class PetCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Pet
+    fields = "__all__"
+    success_url = reverse_lazy("pet_app:pet-list")
+
+
+class PetUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Pet
+    fields = "__all__"
+    success_url = reverse_lazy("pet_app:pet-list")
+
+
+class PetDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Pet
+    success_url = reverse_lazy("pet_app:pet-list")

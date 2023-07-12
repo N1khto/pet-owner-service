@@ -14,3 +14,11 @@ class SpeciesSearchForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder": "Search by species..."})
     )
 
+
+class PetSearchForm(forms.Form):
+    nickname = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search by nickname..."})
+    )
