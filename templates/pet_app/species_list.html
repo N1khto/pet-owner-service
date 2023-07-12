@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Species List
+    <a href="{% url 'pet_app:index' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+
+
+  {% if species_list %}
+    <table class="table">
+      <tr>
+        <th>Species</th>
+        <th>Class</th>
+        <th>Description</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for species in species_list %}
+        <tr>
+          <td>
+              {{ species.species }}
+          </td>
+          <td>
+              {{ species.animal_class }}
+          </td>
+          <td>
+              {{ species.description }}
+          </td>
+          <td>
+              <a href="{% url 'pet_app:index' %}">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'pet_app:index' %}">
+                Delete
+              </a>
+            </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no species.</p>
+  {% endif %}
+{% endblock %}

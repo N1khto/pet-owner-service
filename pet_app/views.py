@@ -1,5 +1,6 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-
+from django.views import generic
 
 from pet_app.models import Pet, PetOwner, PetFood, Species, Brand
 
@@ -17,3 +18,10 @@ def index(request):
     }
 
     return render(request, "pet_app/index.html", context=context)
+
+
+class SpeciesListView(LoginRequiredMixin, generic.ListView):
+    model = Species
+    context_object_name = "species_list"
+    template_name = "pet_app/species_list.html"
+    paginate_by = 2
