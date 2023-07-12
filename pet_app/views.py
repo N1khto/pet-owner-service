@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 
+from pet_app.forms import SpeciesSearchForm
 from pet_app.models import Pet, PetOwner, PetFood, Species, Brand
 
 
@@ -25,3 +26,16 @@ class SpeciesListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "species_list"
     template_name = "pet_app/species_list.html"
     paginate_by = 2
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(SpeciesListView, self).get_context_data(**kwargs)
+        species = self.request.GET.get("species", "")
+        context["search_form"] = SpeciesSearchForm(initial={"species": species})
+        return context
+
+    def get_queryset(self):
+        queryset = Species.objects.all()
+        form = SpeciesSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(species__icontains=form.cleaned_data["species"])
+        return queryset
