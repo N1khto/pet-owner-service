@@ -2,47 +2,54 @@
 
 {% block content %}
   <h1>
-    Brands List
+    Pet Food Brands
     <a href="{% url 'pet_app:brand-create' %}" class="btn btn-primary link-to-page">
-      Create
+      Add
     </a>
   </h1>
 
   {% include "includes/search_form.html" %}
-
+  <br>
   {% if brand_list %}
-    <table class="table">
-      <tr>
+    <table class="table align-middle mb-0">
+      <tr class="table-dark">
         <th>Brand name</th>
         <th>Country</th>
-        <th>Update</th>
-        <th>Delete</th>
+        <th>Number of products</th>
+        <th>Actions</th>
       </tr>
 
       {% for brand in brand_list %}
         <tr>
           <td>
-              {{ brand.name }}
+            <div class="d-flex align-items-center ms-3">
+              <b>{{ brand.name }}</b>
+            </div>
           </td>
           <td>
-              {{ brand.country }}
+            <div class="d-flex align-items-center ms-3">
+              <b>{{ brand.country }}</b>
+            </div>
           </td>
           <td>
-              <a href="{% url 'pet_app:brand-update' pk=brand.id %}">
+            <div class="d-flex align-items-center ms-3">
+              {{ brand.pet_foods.count }}
+            </div>
+          </td>
+          <td>
+            <div class="btn-group-vertical">
+              <a href="{% url 'pet_app:brand-update' pk=brand.id %}" class="btn btn-primary" role="button">
                 Update
               </a>
-            </td>
-            <td>
-              <a style="color: red"
-                href="{% url 'pet_app:brand-delete' pk=brand.id %}">
+              <a href="{% url 'pet_app:brand-delete' pk=brand.id %}" class="btn btn-light" role="button">
                 Delete
               </a>
-            </td>
+            </div>
+          </td>
         </tr>
       {% endfor %}
     </table>
-
   {% else %}
-      <p>There are no brands.</p>
+    <p><b>There are no brands.</b></p>
   {% endif %}
 {% endblock %}

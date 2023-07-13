@@ -5,22 +5,32 @@
   <h1>
     Pet food list
     <a href="{% url 'pet_app:pet-food-create' %}" class="btn btn-primary link-to-page">
-      Create
+      Add
     </a>
   </h1>
 
   {% include "includes/search_form.html" %}
-
+  <br>
   {% if pet_food_list %}
-    <ul>
+    <table class="table align-middle mb-0">
+      <tr class="table-dark">
+        <th>ID</th>
+        <th>Tittle</th>
+        <th>Brand</th>
+        <th>Type</th>
+        <th>Price</th>
+      </tr>
       {% for pet_food in pet_food_list %}
-        <li>
-          <a href="{% url 'pet_app:pet-food-detail' pk=pet_food.id %} ">{{ pet_food.id }}</a>
-          {{ pet_food.title }} ({{ pet_food.brand.name }})
-        </li>
-      {% endfor %}
-    </ul>
+        <tr>
+          <td>{{ pet_food.id }}</td>
+          <td><a class="link-dark" href="{% url 'pet_app:pet-food-detail' pk=pet_food.id %}"><b>{{ pet_food.title }}</b></a></td>
+          <td>{{ pet_food.brand }}</td>
+          <td>{{ pet_food.food_type }}</td>
+          <td>{{ pet_food.price }} $</td>
+        </tr>
+    {% endfor %}
+    </table>
   {% else %}
-    <p>There are no pet food</p>
+    <p><b>There are no pet food</b></p>
   {% endif %}
 {% endblock %}

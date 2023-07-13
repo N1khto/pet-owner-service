@@ -4,7 +4,7 @@
   <h1>
     Species List
     <a href="{% url 'pet_app:species-create' %}" class="btn btn-primary link-to-page">
-      Create
+      Add
     </a>
   </h1>
 
@@ -25,12 +25,12 @@
           <tr>
             <td>
               <div class="d-flex align-items-center ms-3">
-                {{ species.species }}
+                <b>{{ species.species }}</b>
               </div>
             </td>
             <td>
               <div class="d-flex align-items-center ms-3">
-                {{ species.animal_class }}
+                <b>{{ species.animal_class }}</b>
               </div>
             </td>
             <td>
