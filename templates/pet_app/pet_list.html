@@ -12,14 +12,55 @@
   {% include "includes/search_form.html" %}
 
   {% if pet_list %}
-    <ul>
-      {% for pet in pet_list %}
-        <li>
-          <a href="{% url 'pet_app:pet-detail' pk=pet.id %} ">{{ pet.id }}</a>
-          {{ pet.nickname }}
-        </li>
+
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr class="table-info">
+          <th>Nickname</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Owner</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pet in pet_list %}
+          <tr>
+            <td>
+              <div class="d-flex align-items-center ms-3">
+                <a href="{% url 'pet_app:pet-detail' pk=pet.id %} ">{{ pet.nickname }}</a>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex align-items-center ms-3">
+                {{ pet.age }} years
+              </div>
+            </td>
+            <td>
+              <div class="d-flex align-items-center ms-3">
+                {{ pet.gender }}
+              </div>
+            </td>
+            <td>
+              <div class="d-flex align-items-center ms-3">
+                <a href="{% url 'pet_app:pet-owner-detail' pk=pet.owner.id %} ">{{ pet.owner }}</a>
+              </div>
+            </td>
+
+            <td>
+              <div class="btn-group-vertical">
+                <a href="{% url 'pet_app:pet-update' pk=pet.id %}" class="btn btn-primary" role="button">
+                  Update
+                </a>
+                <a href="{% url 'pet_app:pet-delete' pk=pet.id %}" class="btn btn-danger" role="button">
+                  Delete
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
       {% endfor %}
-    </ul>
+    </table>
   {% else %}
     <p>There are no pets. Where did they go?..</p>
   {% endif %}
