@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from pet_app.forms import SpeciesSearchForm, PetSearchForm, BrandSearchForm
+from pet_app.forms import SpeciesSearchForm, PetSearchForm, BrandSearchForm, PetOwnerSearchForm, PetOwnerCreationForm, \
+    PetOwnerUpdateForm
 from pet_app.models import Pet, PetOwner, PetFood, Species, Brand
 
 
@@ -133,3 +135,54 @@ class BrandUpdateView(LoginRequiredMixin, generic.UpdateView):
 class BrandDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Brand
     success_url = reverse_lazy("pet_app:brand-list")
+
+
+class PetOwnerListView(LoginRequiredMixin, generic.ListView):
+    queryset = PetOwner.objects.all()
+    model = PetOwner
+    context_object_name = "pet_owner_list"
+    template_name = "pet_app/pet_owner_list.html"
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PetOwnerListView, self).get_context_data(**kwargs)
+        username = self.request.GET.get("username", "")
+        context["search_form"] = PetOwnerSearchForm(
+            initial={"username": username}
+        )
+        return context
+
+    def get_queryset(self):
+        form = PetOwnerSearchForm(self.request.GET)
+        if form.is_valid():
+            return self.queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+        return self.queryset
+
+
+class PetOwnerDetailView(LoginRequiredMixin, generic.DetailView):
+    model = PetOwner
+    queryset = PetOwner.objects.all()
+    context_object_name = "pet_owner"
+    template_name = "pet_app/pet_owner_detail.html"
+
+
+class PetOwnerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = PetOwner
+    form_class = PetOwnerCreationForm
+    template_name = "pet_app/pet_owner_form.html"
+    success_url = reverse_lazy("pet_app:pet-owner-list")
+
+
+class PetOwnerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = PetOwner
+    form_class = PetOwnerUpdateForm
+    template_name = "pet_app/pet_owner_form.html"
+    success_url = reverse_lazy("pet_app:pet-owner-list")
+
+
+class PetOwnerDeleteView(LoginRequiredMixin,  generic.DeleteView):
+    model = PetOwner
+    template_name = "pet_app/pet_owner_confirm_delete.html"
+    success_url = reverse_lazy("pet_app:pet-owner-list")
