@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Brands List
+    <a href="{% url 'pet_app:brand-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+
+  {% include "includes/search_form.html" %}
+
+  {% if brand_list %}
+    <table class="table">
+      <tr>
+        <th>Brand name</th>
+        <th>Country</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for brand in brand_list %}
+        <tr>
+          <td>
+              {{ brand.name }}
+          </td>
+          <td>
+              {{ brand.country }}
+          </td>
+          <td>
+              <a href="{% url 'pet_app:brand-update' pk=brand.id %}">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'pet_app:brand-delete' pk=brand.id %}">
+                Delete
+              </a>
+            </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no brands.</p>
+  {% endif %}
+{% endblock %}
