@@ -3,7 +3,8 @@ from django.urls import path
 from pet_app.views import index, SpeciesListView, SpeciesCreateView, SpeciesUpdateView, \
     SpeciesDeleteView, PetListView, PetDetailView, PetCreateView, PetUpdateView, PetDeleteView, \
     BrandListView, BrandCreateView, BrandUpdateView, BrandDeleteView, PetOwnerListView, \
-    PetOwnerDetailView, PetOwnerCreateView, PetOwnerUpdateView, PetOwnerDeleteView
+    PetOwnerDetailView, PetOwnerCreateView, PetOwnerUpdateView, PetOwnerDeleteView, \
+    PetFoodListView, PetFoodDetailView, PetFoodCreateView, PetFoodUpdateView, PetFoodDeleteView
 
 urlpatterns = [
     path("", index, name="index"),
@@ -25,6 +26,11 @@ urlpatterns = [
     path("pet_owners/create/", PetOwnerCreateView.as_view(), name="pet-owner-create"),
     path("pet_owners/<int:pk>/update/", PetOwnerUpdateView.as_view(), name="pet-owner-update",),
     path("pet_owners/<int:pk>/delete/", PetOwnerDeleteView.as_view(), name="pet-owner-delete",),
+    path("pet_foods/", PetFoodListView.as_view(), name="pet-food-list"),
+    path("pet_foods/<int:pk>/", PetFoodDetailView.as_view(), name="pet-food-detail"),
+    path("pet_foods/create/", PetFoodCreateView.as_view(), name="pet-food-create"),
+    path("pet_foods/<int:pk>/update/", PetFoodUpdateView.as_view(), name="pet-food-update"),
+    path("pet_foods/<int:pk>/delete/", PetFoodDeleteView.as_view(), name="pet-food-delete"),
 ]
 
 app_name = "pet_app"

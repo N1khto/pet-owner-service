@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from pet_app.forms import SpeciesSearchForm, PetSearchForm, BrandSearchForm, PetOwnerSearchForm, PetOwnerCreationForm, \
-    PetOwnerUpdateForm
+    PetOwnerUpdateForm, PetFoodSearchForm
 from pet_app.models import Pet, PetOwner, PetFood, Species, Brand
 
 
@@ -28,7 +28,7 @@ class SpeciesListView(LoginRequiredMixin, generic.ListView):
     model = Species
     context_object_name = "species_list"
     template_name = "pet_app/species_list.html"
-    paginate_by = 2
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SpeciesListView, self).get_context_data(**kwargs)
@@ -63,7 +63,7 @@ class SpeciesDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class PetListView(LoginRequiredMixin, generic.ListView):
     model = Pet
-    paginate_by = 2
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PetListView, self).get_context_data(**kwargs)
@@ -104,7 +104,7 @@ class BrandListView(LoginRequiredMixin, generic.ListView):
     model = Brand
     context_object_name = "brand_list"
     template_name = "pet_app/brand_list.html"
-    paginate_by = 2
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(BrandListView, self).get_context_data(**kwargs)
@@ -186,3 +186,50 @@ class PetOwnerDeleteView(LoginRequiredMixin,  generic.DeleteView):
     model = PetOwner
     template_name = "pet_app/pet_owner_confirm_delete.html"
     success_url = reverse_lazy("pet_app:pet-owner-list")
+
+
+class PetFoodListView(LoginRequiredMixin, generic.ListView):
+    model = PetFood
+    context_object_name = "pet_food_list"
+    template_name = "pet_app/pet_food_list.html"
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PetFoodListView, self).get_context_data(**kwargs)
+        title = self.request.GET.get("title", "")
+        context["search_form"] = PetFoodSearchForm(initial={"title": title})
+        return context
+
+    def get_queryset(self):
+        queryset = PetFood.objects.select_related("brand")
+        form = PetFoodSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(title__icontains=form.cleaned_data["title"])
+        return queryset
+
+
+class PetFoodDetailView(LoginRequiredMixin, generic.DetailView):
+    model = PetFood
+    queryset = PetFood.objects.all()
+    context_object_name = "pet_food"
+    template_name = "pet_app/pet_food_detail.html"
+
+
+class PetFoodCreateView(LoginRequiredMixin, generic.CreateView):
+    model = PetFood
+    fields = "__all__"
+    template_name = "pet_app/pet_food_form.html"
+    success_url = reverse_lazy("pet_app:pet-food-list")
+
+
+class PetFoodUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = PetFood
+    fields = "__all__"
+    template_name = "pet_app/pet_food_form.html"
+    success_url = reverse_lazy("pet_app:pet-food-list")
+
+
+class PetFoodDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = PetFood
+    template_name = "pet_app/pet_food_confirm_delete.html"
+    success_url = reverse_lazy("pet_app:pet-food-list")

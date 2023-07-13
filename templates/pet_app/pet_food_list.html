@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Pet food list
+    <a href="{% url 'pet_app:pet-food-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+
+  {% include "includes/search_form.html" %}
+
+  {% if pet_food_list %}
+    <ul>
+      {% for pet_food in pet_food_list %}
+        <li>
+          <a href="{% url 'pet_app:pet-food-detail' pk=pet_food.id %} ">{{ pet_food.id }}</a>
+          {{ pet_food.title }} ({{ pet_food.brand.name }})
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no pet food</p>
+  {% endif %}
+{% endblock %}

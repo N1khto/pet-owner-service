@@ -52,3 +52,12 @@ class PetOwnerUpdateForm(forms.ModelForm):
     class Meta:
         model = PetOwner
         fields = ["first_name", "last_name", "email", "pet_owner_experience"]
+
+
+class PetFoodSearchForm(forms.Form):
+    title = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search by title..."})
+    )
