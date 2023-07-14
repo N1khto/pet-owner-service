@@ -84,6 +84,7 @@ class PetListView(LoginRequiredMixin, generic.ListView):
 
 
 class PetDetailView(LoginRequiredMixin, generic.DetailView):
+    queryset = Pet.objects.select_related("owner")
     model = Pet
 
 
@@ -167,7 +168,7 @@ class PetOwnerListView(LoginRequiredMixin, generic.ListView):
 
 class PetOwnerDetailView(LoginRequiredMixin, generic.DetailView):
     model = PetOwner
-    queryset = PetOwner.objects.all()
+    queryset = PetOwner.objects.prefetch_related("pet_set__species")
     context_object_name = "pet_owner"
     template_name = "pet_app/pet_owner_detail.html"
 
