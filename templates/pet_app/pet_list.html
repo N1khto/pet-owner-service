@@ -34,7 +34,9 @@
             </td>
             <td>
               <div class="d-flex align-items-center">
-                {{ pet.species }} {% if pet.breed %} ({{ pet.breed }}) {% endif %}
+                <b><a class="link-dark" href="{% url 'pet_app:species-list' %}?species={{ pet.species }}">
+                  {{ pet.species }} {% if pet.breed %} ({{ pet.breed }}) {% endif %}
+                </a></b>
               </div>
             </td>
             <td>

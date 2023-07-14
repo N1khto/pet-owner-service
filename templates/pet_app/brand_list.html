@@ -33,7 +33,7 @@
           </td>
           <td>
             <div class="d-flex align-items-center ms-3">
-              {{ brand.pet_foods.count }}
+              <b><a class="link-dark" href="{% url 'pet_app:pet-food-list' %}?title={{ brand.name }}">{{ brand.pet_foods.count }}</a></b>
             </div>
           </td>
           <td>

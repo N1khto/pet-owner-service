@@ -24,7 +24,9 @@
         <tr>
           <td>{{ pet_food.id }}</td>
           <td><a class="link-dark" href="{% url 'pet_app:pet-food-detail' pk=pet_food.id %}"><b>{{ pet_food.title }}</b></a></td>
-          <td>{{ pet_food.brand }}</td>
+          <td>
+            <b><a class="link-dark" href="{% url 'pet_app:brand-list' %}?name={{ pet_food.brand.name }}">{{ pet_food.brand }}</a></b>
+          </td>
           <td>{{ pet_food.food_type }}</td>
           <td>{{ pet_food.price }} $</td>
         </tr>

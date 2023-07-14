@@ -192,7 +192,7 @@ class PetFoodListView(LoginRequiredMixin, generic.ListView):
     model = PetFood
     context_object_name = "pet_food_list"
     template_name = "pet_app/pet_food_list.html"
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PetFoodListView, self).get_context_data(**kwargs)
