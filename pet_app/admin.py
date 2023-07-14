@@ -8,7 +8,9 @@ from pet_app.models import Pet, PetFood, Species, Brand, PetOwner
 @admin.register(PetOwner)
 class PetOwnerAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("pet_owner_experience",)
-    fieldsets = UserAdmin.fieldsets + (("Additional info", {"fields": ("pet_owner_experience",)}),)
+    fieldsets = UserAdmin.fieldsets + (
+        ("Additional info", {"fields": ("pet_owner_experience",)}),
+    )
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ("pet_owner_experience",)}),
     )

@@ -1,16 +1,21 @@
-from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from pet_app.forms import SpeciesSearchForm, PetSearchForm, BrandSearchForm, PetOwnerSearchForm, PetOwnerCreationForm, \
-    PetOwnerUpdateForm, PetFoodSearchForm
+from pet_app.forms import (
+    SpeciesSearchForm,
+    PetSearchForm,
+    BrandSearchForm,
+    PetOwnerSearchForm,
+    PetOwnerCreationForm,
+    PetOwnerUpdateForm,
+    PetFoodSearchForm,
+)
 from pet_app.models import Pet, PetOwner, PetFood, Species, Brand
 
 
 def index(request):
-
     num_pet_owners = PetOwner.objects.count()
     num_pets = Pet.objects.count()
     num_brands = Brand.objects.count()
@@ -37,14 +42,18 @@ class SpeciesListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SpeciesListView, self).get_context_data(**kwargs)
         species = self.request.GET.get("species", "")
-        context["search_form"] = SpeciesSearchForm(initial={"species": species})
+        context["search_form"] = SpeciesSearchForm(
+            initial={"species": species}
+        )
         return context
 
     def get_queryset(self):
         queryset = Species.objects.all()
         form = SpeciesSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(species__icontains=form.cleaned_data["species"])
+            return queryset.filter(
+                species__icontains=form.cleaned_data["species"]
+            )
         return queryset
 
 
@@ -79,7 +88,9 @@ class PetListView(LoginRequiredMixin, generic.ListView):
         queryset = Pet.objects.prefetch_related("owner", "species")
         form = PetSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(nickname__icontains=form.cleaned_data["nickname"])
+            return queryset.filter(
+                nickname__icontains=form.cleaned_data["nickname"]
+            )
         return queryset
 
 
@@ -187,7 +198,7 @@ class PetOwnerUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("pet_app:pet-owner-list")
 
 
-class PetOwnerDeleteView(LoginRequiredMixin,  generic.DeleteView):
+class PetOwnerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = PetOwner
     template_name = "pet_app/pet_owner_confirm_delete.html"
     success_url = reverse_lazy("pet_app:pet-owner-list")

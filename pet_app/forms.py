@@ -1,10 +1,8 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 
-from pet_app.models import Pet, PetFood, Species, Brand, PetOwner
+from pet_app.models import PetOwner
 
 
 class SpeciesSearchForm(forms.Form):
@@ -12,7 +10,7 @@ class SpeciesSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by species..."})
+        widget=forms.TextInput(attrs={"placeholder": "Search by species..."}),
     )
 
 
@@ -21,7 +19,7 @@ class PetSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by nickname..."})
+        widget=forms.TextInput(attrs={"placeholder": "Search by nickname..."}),
     )
 
 
@@ -30,7 +28,9 @@ class BrandSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by brand name..."})
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by brand name..."}
+        ),
     )
 
 
@@ -39,7 +39,9 @@ class PetOwnerSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by username..."})
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by username..."}
+        ),
     )
 
 
@@ -48,15 +50,14 @@ class PetOwnerCreationForm(UserCreationForm):
         required=True,
         validators=[
             MaxValueValidator(
-                limit_value=100,
-                message="humans doesn't live so long"
+                limit_value=100, message="humans doesn't live so long"
             )
-        ]
+        ],
     )
 
     class Meta:
         model = PetOwner
-        fields = UserCreationForm.Meta.fields + ("pet_owner_experience", )
+        fields = UserCreationForm.Meta.fields + ("pet_owner_experience",)
 
 
 class PetOwnerUpdateForm(forms.ModelForm):
@@ -64,10 +65,9 @@ class PetOwnerUpdateForm(forms.ModelForm):
         required=True,
         validators=[
             MaxValueValidator(
-                limit_value=100,
-                message="humans doesn't live so long"
+                limit_value=100, message="humans doesn't live so long"
             )
-        ]
+        ],
     )
 
     class Meta:
@@ -80,5 +80,7 @@ class PetFoodSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by title..."})
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by title..."}
+        ),
     )

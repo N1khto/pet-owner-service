@@ -7,7 +7,3 @@ Here you can meet like-minded pet owners form all over the world and share infor
 Also, you can find o lot of useful information about pet foods and share yours pet diet.
 
 This kind of application can be used as part of online pet shop.
-
-Test superuser:
-login: Nikhto
-pass: 8773927

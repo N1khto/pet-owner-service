@@ -1,55 +1,55 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-        <div class="sb-sidenav-menu">
-            <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="{% url 'pet_app:index' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-2x fa-paw"></i></div>
-                    Pet Service Home
-                </a>
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'logout'%}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-2x fa-dove"></i></div>
-                        Logout
-                    </a>
-                {% else %}
-                    <a class="nav-link" href="{% url 'login'%}?next={{request.path}}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-2x fa-kiwi-bird"></i></div>
-                        Login
-                    </a>
-                {% endif %}
-                <div class="sb-sidenav-menu-heading">Navigation</div>
-                <a class="nav-link" href="{% url 'pet_app:species-list' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-2x fa-hippo"></i></div>
-                    Species List
-                </a>
-                <a class="nav-link" href="{% url 'pet_app:pet-list' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-2x fa-cat"></i></div>
-                    Our beloved pets
-                </a>
-                <a class="nav-link" href="{% url 'pet_app:pet-owner-list' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-2x fa-users"></i></div>
-                    Our community
-                </a>
-                <a class="nav-link" href="{% url 'pet_app:brand-list' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-2x fa-carrot"></i></div>
-                    Pet Food Brands
-                </a>
-                <a class="nav-link" href="{% url 'pet_app:pet-food-list' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-2x fa-bone"></i></div>
-                    Pet Foods
-                </a>
-            </div>
-        </div>
-        <div class="sb-sidenav-footer">
-          {% if user.is_authenticated %}
-            <div class="small">Logged in as:</div>
-            {{ user.get_username }}
-          {% else %}
-            <a class="nav-link" href="{% url 'login' %}?next={{request.path}}">
-                You must be new here?
-            </a>
-          {% endif %}
-        </div>
-    </nav>
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+      <div class="nav">
+        <div class="sb-sidenav-menu-heading">Core</div>
+        <a class="nav-link" href="{% url 'pet_app:index' %}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-paw"></i></div>
+          Pet Service Home
+        </a>
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'logout'%}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-dove"></i></div>
+          Logout
+        </a>
+        {% else %}
+        <a class="nav-link" href="{% url 'login'%}?next={{request.path}}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-kiwi-bird"></i></div>
+          Login
+        </a>
+        {% endif %}
+        <div class="sb-sidenav-menu-heading">Navigation</div>
+        <a class="nav-link" href="{% url 'pet_app:species-list' %}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-hippo"></i></div>
+          Species List
+        </a>
+        <a class="nav-link" href="{% url 'pet_app:pet-list' %}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-cat"></i></div>
+          Our beloved pets
+        </a>
+        <a class="nav-link" href="{% url 'pet_app:pet-owner-list' %}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-users"></i></div>
+          Our community
+        </a>
+        <a class="nav-link" href="{% url 'pet_app:brand-list' %}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-carrot"></i></div>
+          Pet Food Brands
+        </a>
+        <a class="nav-link" href="{% url 'pet_app:pet-food-list' %}">
+          <div class="sb-nav-link-icon"><i class="fas fa-2x fa-bone"></i></div>
+          Pet Foods
+        </a>
+      </div>
+    </div>
+    <div class="sb-sidenav-footer">
+      {% if user.is_authenticated %}
+      <div class="small">Logged in as:</div>
+      {{ user.get_username }}
+      {% else %}
+      <a class="nav-link" href="{% url 'login' %}?next={{request.path}}">
+        You must be new here?
+      </a>
+      {% endif %}
+    </div>
+  </nav>
 </div>

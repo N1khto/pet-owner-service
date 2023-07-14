@@ -37,7 +37,9 @@ class PetFood(models.Model):
     ]
 
     title = models.CharField(max_length=255, unique=True)
-    brand = models.ForeignKey(Brand, related_name="pet_foods", on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand,
+                              related_name="pet_foods",
+                              on_delete=models.CASCADE)
     food_type = models.CharField(max_length=15, choices=FOOD_TYPES)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
