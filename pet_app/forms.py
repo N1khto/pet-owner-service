@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator
 
 from pet_app.models import Pet, PetFood, Species, Brand, PetOwner
 
@@ -43,12 +44,32 @@ class PetOwnerSearchForm(forms.Form):
 
 
 class PetOwnerCreationForm(UserCreationForm):
+    pet_owner_experience = forms.IntegerField(
+        required=True,
+        validators=[
+            MaxValueValidator(
+                limit_value=100,
+                message="humans doesn't live so long"
+            )
+        ]
+    )
+
     class Meta:
         model = PetOwner
         fields = UserCreationForm.Meta.fields + ("pet_owner_experience", )
 
 
 class PetOwnerUpdateForm(forms.ModelForm):
+    pet_owner_experience = forms.IntegerField(
+        required=True,
+        validators=[
+            MaxValueValidator(
+                limit_value=100,
+                message="humans doesn't live so long"
+            )
+        ]
+    )
+
     class Meta:
         model = PetOwner
         fields = ["first_name", "last_name", "email", "pet_owner_experience"]
