@@ -1,24 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    {{ pet.nickname }}
-    <a href="{% url 'pet_app:pet-delete' pk=pet.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
-
-    <a href="{% url 'pet_app:pet-update' pk=pet.id %}" class="btn btn-secondary link-to-page">
+  <h1>{{ pet.nickname }}
+    <a href="{% url 'pet_app:pet-update' pk=pet.id %}" class="btn btn-primary link-to-page">
       Update
     </a>
+    <a href="{% url 'pet_app:pet-delete' pk=pet.id %}" class="btn btn-light link-to-page">
+      Delete
+    </a>
   </h1>
-  <p>Pet owner: {{ pet.owner.username }}</p>
-  <h1>
+  <ul>
+    <li>
+      <strong>Pet owner:</strong> <b><a class="link-dark" href="{% url 'pet_app:pet-owner-detail' pk=pet.owner.id %} ">{{ pet.owner }}</a></b>
+    </li>
+    <li><strong>Species:</strong> {{ pet.species }} {% if pet.breed %} ({{ pet.breed }}) {% endif %}</li>
+    <li><strong>Age:</strong> {{ pet.age }} years</li>
+    <li><strong>Gender:</strong> {{ pet.gender }}</li>
+  </ul>
+
+  <h3>
     Pet's favourite food:
-  </h1>
+  </h3>
   <hr>
   <ul>
     {% for food in pet.food.all %}
-      <li>{{ food.title }}</li>
+      <li><a class="link-dark" href="{% url 'pet_app:pet-food-detail' pk=food.id %}"><b>{{ food.title }}</b></a></li>
     {% endfor %}
   </ul>
 {% endblock %}

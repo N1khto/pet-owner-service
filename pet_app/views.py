@@ -14,11 +14,15 @@ def index(request):
     num_pet_owners = PetOwner.objects.count()
     num_pets = Pet.objects.count()
     num_brands = Brand.objects.count()
+    num_foods = PetFood.objects.count()
+    num_species = Species.objects.count()
 
     context = {
         "num_pet_owners": num_pet_owners,
         "num_pets": num_pets,
-        "num_brands": num_brands
+        "num_brands": num_brands,
+        "num_foods": num_foods,
+        "num_species": num_species,
     }
 
     return render(request, "pet_app/index.html", context=context)
@@ -28,7 +32,7 @@ class SpeciesListView(LoginRequiredMixin, generic.ListView):
     model = Species
     context_object_name = "species_list"
     template_name = "pet_app/species_list.html"
-    paginate_by = 5
+    paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SpeciesListView, self).get_context_data(**kwargs)
@@ -63,7 +67,7 @@ class SpeciesDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class PetListView(LoginRequiredMixin, generic.ListView):
     model = Pet
-    paginate_by = 5
+    paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PetListView, self).get_context_data(**kwargs)
@@ -104,7 +108,7 @@ class BrandListView(LoginRequiredMixin, generic.ListView):
     model = Brand
     context_object_name = "brand_list"
     template_name = "pet_app/brand_list.html"
-    paginate_by = 5
+    paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(BrandListView, self).get_context_data(**kwargs)
@@ -142,7 +146,7 @@ class PetOwnerListView(LoginRequiredMixin, generic.ListView):
     model = PetOwner
     context_object_name = "pet_owner_list"
     template_name = "pet_app/pet_owner_list.html"
-    paginate_by = 5
+    paginate_by = 8
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PetOwnerListView, self).get_context_data(**kwargs)
@@ -192,7 +196,7 @@ class PetFoodListView(LoginRequiredMixin, generic.ListView):
     model = PetFood
     context_object_name = "pet_food_list"
     template_name = "pet_app/pet_food_list.html"
-    paginate_by = 10
+    paginate_by = 8
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PetFoodListView, self).get_context_data(**kwargs)

@@ -1,30 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    Username: {{ pet_owner.username }}
-    <a href="{% url 'pet_app:pet-owner-delete' pk=pet_owner.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
+  <h1>{{ pet_owner.username }}
 
-    <a href="{% url 'pet_app:pet-owner-update' pk=pet_owner.id %}" class="btn btn-secondary link-to-page">
-      Update
-    </a>
+  <a href="{% url 'pet_app:pet-owner-update' pk=pet_owner.id %}" class="btn btn-primary link-to-page">
+    Update
+  </a>
+  <a href="{% url 'pet_app:pet-owner-delete' pk=pet_owner.id %}" class="btn btn-light link-to-page">
+    Delete
+  </a>
   </h1>
-
   <p><strong>First name:</strong> {{ pet_owner.first_name }}</p>
   <p><strong>Last name:</strong> {{ pet_owner.last_name }}</p>
-  <p><strong>License number:</strong> {{ pet_owner.pet_owner_experience }}</p>
-
-
-  <div class="ml-3">
+  <p><strong>Pet owner experience:</strong> {{ pet_owner.pet_owner_experience }} years</p>
+  <div>
     <h4>Pets:</h4>
     {% for pet in pet_owner.pet_set.all %}
         <hr>
-        <p><strong>Nickname:</strong> {{ pet.nickname }}</p>
+        <p><strong>Nickname:</strong> <b><a class="link-dark" href="{% url 'pet_app:pet-detail' pk=pet.id %}">{{ pet.nickname }}</a></b></p>
         <p><strong>Species:</strong> {{ pet.species }}</p>
-        <p class="text-muted"><strong>Id:</strong> {{pet.id}}</p>
-
     {% empty %}
       <p>No pets!</p>
     {% endfor %}
