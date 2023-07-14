@@ -72,7 +72,7 @@ class PetListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Pet.objects.all()
+        queryset = Pet.objects.prefetch_related("owner", "species")
         form = PetSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(nickname__icontains=form.cleaned_data["nickname"])
@@ -113,7 +113,7 @@ class BrandListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Brand.objects.all()
+        queryset = Brand.objects.prefetch_related("pet_foods")
         form = BrandSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
@@ -138,7 +138,7 @@ class BrandDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class PetOwnerListView(LoginRequiredMixin, generic.ListView):
-    queryset = PetOwner.objects.all()
+    queryset = PetOwner.objects.prefetch_related("pet_set")
     model = PetOwner
     context_object_name = "pet_owner_list"
     template_name = "pet_app/pet_owner_list.html"
