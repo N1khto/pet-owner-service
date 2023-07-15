@@ -4,7 +4,7 @@ from django.db import models
 
 
 class PetOwner(AbstractUser):
-    pet_owner_experience = models.IntegerField(default=0)
+    pet_owner_experience = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = "pet owner"
@@ -56,8 +56,17 @@ class Pet(models.Model):
     nickname = models.CharField(max_length=255)
     age = models.IntegerField()
     gender = models.CharField(max_length=15, choices=PET_GENDER, null=True)
-    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    species = models.ForeignKey(Species, on_delete=models.SET_NULL, null=True)
+    owner = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="pets"
+    )
+    species = models.ForeignKey(
+        Species,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="pets"
+    )
     breed = models.CharField(max_length=255, blank=True)
     food = models.ManyToManyField(PetFood, related_name="pets")
 

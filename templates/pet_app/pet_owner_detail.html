@@ -15,7 +15,7 @@
 <p><strong>Pet owner experience:</strong> {{ pet_owner.pet_owner_experience }} years</p>
 <div>
   <h4>Pets:</h4>
-  {% for pet in pet_owner.pet_set.all %}
+  {% for pet in pet_owner.pets.all %}
   <hr>
   <p><strong>Nickname:</strong> <b><a class="link-dark" href="{% url 'pet_app:pet-detail' pk=pet.id %}">
     {{ pet.nickname }}

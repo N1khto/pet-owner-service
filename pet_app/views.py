@@ -154,7 +154,7 @@ class BrandDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class PetOwnerListView(LoginRequiredMixin, generic.ListView):
-    queryset = PetOwner.objects.prefetch_related("pet_set")
+    queryset = PetOwner.objects.prefetch_related("pets")
     model = PetOwner
     context_object_name = "pet_owner_list"
     template_name = "pet_app/pet_owner_list.html"
@@ -179,7 +179,7 @@ class PetOwnerListView(LoginRequiredMixin, generic.ListView):
 
 class PetOwnerDetailView(LoginRequiredMixin, generic.DetailView):
     model = PetOwner
-    queryset = PetOwner.objects.prefetch_related("pet_set__species")
+    queryset = PetOwner.objects.prefetch_related("pets__species")
     context_object_name = "pet_owner"
     template_name = "pet_app/pet_owner_detail.html"
 
