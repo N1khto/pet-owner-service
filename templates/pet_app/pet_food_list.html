@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<h1>
+  Pet food list
+  <a class="btn btn-primary link-to-page" href="{% url 'pet_app:pet-food-create' %}">
+    Add
+  </a>
+</h1>
+
+{% include "includes/search_form.html" %}
+<br>
+{% if pet_food_list %}
+<table class="table align-middle mb-0">
+  <tr class="table-dark">
+    <th>ID</th>
+    <th>Tittle</th>
+    <th>Brand</th>
+    <th>Type</th>
+    <th>Price</th>
+  </tr>
+  {% for pet_food in pet_food_list %}
+  <tr>
+    <td>{{ pet_food.id }}</td>
+    <td><a class="link-dark" href="{% url 'pet_app:pet-food-detail' pk=pet_food.id %}"><b>
+      {{ pet_food.title }}
+    </b></a></td>
+    <td>
+      <b><a class="link-dark" href="{% url 'pet_app:brand-list' %}?name={{ pet_food.brand.name }}">
+        {{ pet_food.brand }}
+      </a></b>
+    </td>
+    <td>{{ pet_food.food_type }}</td>
+    <td>{{ pet_food.price }} $</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p><b>There are no pet food</b></p>
+{% endif %}
+{% endblock %}

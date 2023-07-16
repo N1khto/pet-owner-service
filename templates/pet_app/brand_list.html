@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>
+  Pet Food Brands
+  <a class="btn btn-primary link-to-page" href="{% url 'pet_app:brand-create' %}">
+    Add
+  </a>
+</h1>
+
+{% include "includes/search_form.html" %}
+<br>
+{% if brand_list %}
+<table class="table align-middle mb-0">
+  <tr class="table-dark">
+    <th>Brand name</th>
+    <th>Country</th>
+    <th>Number of products</th>
+    <th>Actions</th>
+  </tr>
+
+  {% for brand in brand_list %}
+  <tr>
+    <td>
+      <div class="d-flex align-items-center ms-3">
+        <b>{{ brand.name }}</b>
+      </div>
+    </td>
+    <td>
+      <div class="d-flex align-items-center ms-3">
+        <b>{{ brand.country }}</b>
+      </div>
+    </td>
+    <td>
+      <div class="d-flex align-items-center ms-3">
+        <b><a class="link-dark" href="{% url 'pet_app:pet-food-list' %}?title={{ brand.name }}">
+          {{ brand.pet_foods.count }}
+        </a></b>
+      </div>
+    </td>
+    <td>
+      <div class="btn-group-vertical">
+        <a class="btn btn-primary" href="{% url 'pet_app:brand-update' pk=brand.id %}" role="button">
+          Update
+        </a>
+        <a class="btn btn-light" href="{% url 'pet_app:brand-delete' pk=brand.id %}" role="button">
+          Delete
+        </a>
+      </div>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p><b>There are no brands.</b></p>
+{% endif %}
+{% endblock %}

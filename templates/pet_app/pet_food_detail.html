@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>
+  {{ pet_food.title }}
+  <a class="btn btn-primary link-to-page" href="{% url 'pet_app:pet-food-update' pk=pet_food.id %}">
+    Update
+  </a>
+  <a class="btn btn-light link-to-page" href="{% url 'pet_app:pet-food-delete' pk=pet_food.id %}">
+    Delete
+  </a>
+</h1>
+<h4><b>Price:</b> {{ pet_food.price }} $</h4>
+<p><b>Brand:</b> {{ pet_food.brand.name }} ({{ pet_food.brand.country }})</p>
+<h1>
+  Pet's who love this food:
+</h1>
+<ul>
+  {% for pet in pet_food.pets.all %}
+  <li><b><a class="link-dark" href="{% url 'pet_app:pet-detail' pk=pet.id %}">
+    {{ pet.nickname }}
+  </a></b></li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete this pet food?</h1>
+<div class="btn-group" role="group">
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <input class="btn btn-danger" type="submit" value="Yes">
+  </form>
+  <a href="{{ view.get_success_url }}">
+    <button class="btn btn-secondary" type="button">Cancel</button>
+  </a>
+</div>
+{% endblock %}

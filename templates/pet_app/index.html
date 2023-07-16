@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-md-6 p-lg-6 mx-auto my-6 text-center">
+  <br>
+  <h1 class="display-2">Welcome to Pet Service!</h1>
+  <br>
+  <br>
+  <p class="lead">We are glad to greet you in our service!
+    Here you can meet like-minded pet owners form all over the world and share information about your beloved pet.
+    Also, you can find o lot of useful information about pet foods and share yours pet diet.
+  </p>
+  <br>
+  <p class="lead">Over <span class="badge bg-dark text-wrap"><a class="link-light"
+                                                                href="{% url 'pet_app:pet-owner-list' %}">{{ num_pet_owners }} happy pet owners</a></span>
+    with more than
+    <span class="badge bg-dark text-wrap"><a class="link-light"
+                                             href="{% url 'pet_app:pet-list' %}">{{ num_pets }} pets</a></span> of <span
+        class="badge bg-dark text-wrap"><a class="link-light" href="{% url 'pet_app:species-list' %}">{{ num_species }} different species</a></span>
+    already with us!
+    Our base contains <span class="badge bg-dark text-wrap"><a class="link-light"
+                                                               href="{% url 'pet_app:pet-food-list' %}">{{ num_foods }} different pet foods</a></span>
+    of <span class="badge bg-dark text-wrap"><a class="link-light" href="{% url 'pet_app:brand-list' %}">{{ num_brands }} different brands</a></span>!
+  </p>
+</div>
+{% endblock %}
