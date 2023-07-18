@@ -20,3 +20,8 @@ This kind of application can be used as part of online pet shop.
 
 ## Demo
 ![Website interface](demo.png)
+
+## Test user
+
+login: user
+password: user12345
