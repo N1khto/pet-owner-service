@@ -8,6 +8,10 @@ Also, you can find o lot of useful information about pet foods and share yours p
 
 This kind of application can be used as part of online pet shop.
 
+## Check it out!
+
+[Pet service project deployed on Render.com](https://pet-servise.onrender.com)
+
 ## Features
 
 * Authentication functionality for PetOwner/User
